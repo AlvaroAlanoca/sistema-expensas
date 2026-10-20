@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Observers\DetallePagoObserver;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy; // 1. Importar esto
+use Illuminate\Database\Eloquent\Attributes\ObservedBy; 
 
-#[ObservedBy([DetallePagoObserver::class])] // 2. Activar el vigilante
+#[ObservedBy([DetallePagoObserver::class])] 
 class DetallePago extends Model
 {
     protected $guarded = [];

@@ -4,8 +4,8 @@ namespace App\Models;
 use App\Models\DetallePago;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Observers\PagoObserver; // 1. Importar el observador
-use Illuminate\Database\Eloquent\Attributes\ObservedBy; // 2. Importar el atributo
+use App\Observers\PagoObserver; 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy; 
 class Pago extends Model
 {
     protected $guarded = [];
@@ -20,7 +20,7 @@ class Pago extends Model
     ];*/
 public function detalles(): HasMany
     {
-        return $this->hasMany(DetallePago::class); // Laravel buscará 'pago_id' en la tabla detalle_pagos
+        return $this->hasMany(DetallePago::class); 
     }
     public function user() { return $this->belongsTo(User::class); }
     public function expensa() { return $this->belongsTo(Expensa::class); }

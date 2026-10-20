@@ -16,7 +16,7 @@ class ReporteMorosidad extends Page
 
     public function getDeudoresProperty()
     {
-        // AHORA SÍ CARGA A LOS USUARIOS DESDE LA TABLA INTERMEDIA
+
         return Expensa::with('propiedad.usuarios')
             ->where('monto_pendiente', '>', 0)
             ->whereDate('fecha_vencimiento', '<', Carbon::today())
@@ -42,7 +42,7 @@ class ReporteMorosidad extends Page
         $nombreCompleto = trim($usuario->name . ' ' . $usuario->apellido_paterno);
         $fechaVencimiento = Carbon::parse($expensa->fecha_vencimiento)->format('d/m/Y');
 
-        // 1. Llamamos al servicio para obtener el enlace generado
+
         $enlace = \App\Services\WhatsAppService::generarEnlace(
             $usuario->telefono,
             $nombreCompleto,
@@ -51,10 +51,8 @@ class ReporteMorosidad extends Page
             $fechaVencimiento
         );
 
-        // 2. Usamos Javascript a través de Livewire para abrir el enlace en una nueva pestaña
         $this->js("window.open('{$enlace}', '_blank');");
 
-        // 3. Mostramos una notificación de que la acción se ejecutó
         Notification::make()
             ->title('Abriendo WhatsApp...')
             ->body("Redirigiendo al chat con {$nombreCompleto}.")

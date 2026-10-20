@@ -53,15 +53,12 @@ class User extends Authenticatable
         ];
     }
 
-    // Esta es la función nativa de Filament que controla el acceso
     public function canAccessPanel(Panel $panel): bool
     {
-        // Si intentan entrar a /admin, solo pasan los que tienen rol 'admin'
         if ($panel->getId() === 'admin') {
             return $this->rol === 'admin';
         }
 
-        // Si intentan entrar a /residente, solo pasan los residentes
         if ($panel->getId() === 'residente') {
             return $this->rol === 'residente';
         }
@@ -73,7 +70,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Propiedad::class)->withPivot('rol_en_propiedad')->withTimestamps();
     }
 
-    // Un usuario puede realizar muchos pagos
     public function pagos()
     {
         return $this->hasMany(Pago::class);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo; // <-- Muy importante
+use Illuminate\Database\Eloquent\Relations\BelongsTo; 
 use App\Models\CajaChica;
 class Egreso extends Model
 {

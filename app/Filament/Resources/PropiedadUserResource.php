@@ -27,12 +27,12 @@ protected static ?string $navigationGroup = 'Administración';
         return $form
             ->schema([
                 Forms\Components\Select::make('propiedad_id')
-                ->relationship('propiedad', 'numero') // Mostrará el número en lugar del ID
+                ->relationship('propiedad', 'numero') 
                 ->label('Propiedad (Departamento)')
                 ->required(),
 
             Forms\Components\Select::make('user_id')
-                ->relationship('user', 'name') // Mostrará el nombre en lugar del ID
+                ->relationship('user', 'name') 
                 ->label('Usuario')
                 ->required(),
 

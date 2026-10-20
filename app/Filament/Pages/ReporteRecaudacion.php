@@ -13,7 +13,6 @@ class ReporteRecaudacion extends Page
     protected static ?string $title = 'Recaudación Mensual';
     protected static ?string $navigationGroup = 'Reportes Financieros';
 
-    // Esta función agrupa y suma los pagos por mes de gestión
     public function getRecaudacionesProperty()
     {
         return Expensa::select('mes_gestion', DB::raw('SUM(monto_pagado) as total_recaudado'))

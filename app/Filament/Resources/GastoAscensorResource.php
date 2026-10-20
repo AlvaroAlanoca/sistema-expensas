@@ -50,7 +50,7 @@ public static function form(Form $form): Form
                     TextInput::make('monto_total')
                         ->label('Monto Total Facturado')
                         ->numeric()
-                        ->prefix('$') // Cambia el símbolo si usas Bs u otra moneda
+                        ->prefix('Bs') 
                         ->required(),
 
                     TextInput::make('concepto')

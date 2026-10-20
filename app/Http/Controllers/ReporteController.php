@@ -10,7 +10,7 @@ class ReporteController extends Controller
 {
     public function morosidad()
     {
-        // 1. Buscamos a los deudores (la misma lógica de tu tabla)
+        // 1. Buscamos a los deudores 
         $deudores = Expensa::with('propiedad.usuarios')
             ->where('monto_pendiente', '>', 0)
             ->whereDate('fecha_vencimiento', '<', Carbon::today())
@@ -19,10 +19,10 @@ class ReporteController extends Controller
 
         $fechaReporte = Carbon::now()->format('d/m/Y H:i');
 
-        // 2. Cargamos la vista del diseño y le pasamos los datos
+        // 2. Vista del diseño y le pasamos los datos
         $pdf = Pdf::loadView('pdf.morosidad', compact('deudores', 'fechaReporte'));
         
-        // 3. Mostramos el PDF en el navegador (para descargar directamente usa ->download('...'))
+        // 3. PDF en el navegador (para descargar directamente usa ->download('...'))
         return $pdf->stream('Reporte_Deudores_Mes.pdf');
     }
     public function estadoCuenta($id)
@@ -127,7 +127,5 @@ class ReporteController extends Controller
         if ($pago->user_id !== \Illuminate\Support\Facades\Auth::id() && \Illuminate\Support\Facades\Auth::user()->rol !== 'admin') {
             abort(403, 'No tienes permiso para ver este recibo.');
         }
-
-        // ... tu código normal para generar el PDF ...
     }
 }

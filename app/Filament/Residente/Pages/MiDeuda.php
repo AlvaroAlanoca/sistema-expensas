@@ -22,15 +22,13 @@ class MiDeuda extends Page
         /** @var \App\Models\User $user */
         $user = Auth::user();
         
-        // Obtenemos los IDs de las propiedades vinculadas al usuario actual
+
         $propiedadesIds = $user->propiedades()->pluck('propiedades.id');
 
-        // Si no tiene propiedades asignadas, devolvemos todo en cero
         if ($propiedadesIds->isEmpty()) {
             return $this->estructuraVacia();
         }
 
-        // Buscamos las deudas donde monto_pendiente sea mayor a 0
         $expensas = Expensa::whereIn('propiedad_id', $propiedadesIds)->where('monto_pendiente', '>', 0)->get();
         $agua = LecturaAgua::whereIn('propiedad_id', $propiedadesIds)->where('monto_pendiente', '>', 0)->get();
         $gas = LecturaGas::whereIn('propiedad_id', $propiedadesIds)->where('monto_pendiente', '>', 0)->get();

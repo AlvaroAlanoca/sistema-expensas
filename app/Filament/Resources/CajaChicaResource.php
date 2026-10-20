@@ -18,7 +18,8 @@ use Filament\Tables\Columns\TextColumn;
 class CajaChicaResource extends Resource
 {
     protected static ?string $model = CajaChica::class;
-protected static ?string $navigationGroup = 'Módulo de Caja';
+    
+    protected static ?string $navigationGroup = 'Módulo de Caja';
     protected static ?string $navigationLabel = 'Apertura de Cajas';
     protected static ?string $pluralModelLabel = 'Cajas Chicas';
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';

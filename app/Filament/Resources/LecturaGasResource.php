@@ -42,7 +42,7 @@ protected static ?string $navigationGroup = 'Consumo de Servicios';
                 Section::make('Registro de Medidor de Gas')
                 ->schema([
                     Select::make('propiedad_id')
-                        ->relationship('propiedad', 'id') // Ajusta 'id' si usas 'numero'
+                        ->relationship('propiedad', 'id') 
                         ->label('Propiedad')
                         ->searchable()
                         ->required(),
@@ -109,7 +109,7 @@ public static function table(Table $table): Table
             // BOTÓN DE COBRO RÁPIDO (Adaptado para Gas)
             Action::make('registrar_pago')
                 ->label('Cobrar Gas')
-                ->icon('heroicon-o-fire') // Icono distinto para el gas
+                ->icon('heroicon-o-fire') 
                 ->color('warning')
                 ->visible(fn ($record) => $record->estado == 2)
                 ->form([
@@ -141,7 +141,7 @@ public static function table(Table $table): Table
 
                         DetallePago::create([
                             'pago_id' => $pago->id,
-                            'lectura_gas_id' => $record->id, // <-- ¡Clave para conectar con la tabla correcta!
+                            'lectura_gas_id' => $record->id, 
                             'concepto' => 'Consumo de Gas - ' . $record->mes_gestion,
                             'monto' => $record->monto_pendiente,
                         ]);
@@ -183,7 +183,7 @@ public static function table(Table $table): Table
     $anterior = (float) $get('lectura_anterior') ?: 0;
     $actual = (float) $get('lectura_actual') ?: 0;
     
-    // TARIFA FIJA DE GAS: Cambia este 3.50 por el costo real por metro cúbico en tu edificio
+    // TARIFA FIJA DE GAS
     $tarifaPorM3 = 3.50; 
 
     $consumo = $actual - $anterior;

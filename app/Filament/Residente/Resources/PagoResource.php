@@ -19,7 +19,7 @@ class PagoResource extends Resource
     protected static ?string $navigationLabel = 'Mi Historial de Pagos';
     protected static ?string $pluralModelLabel = 'Mis Pagos';
 
-    // ¡CRÍTICO PARA LA SEGURIDAD! Filtra los pagos para que solo vea los suyos.
+    // Filtra los pagos para que solo vea los suyos.
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('user_id', Auth::id());
@@ -27,7 +27,7 @@ class PagoResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema([]); // Lo dejamos vacío porque no van a crear pagos por aquí
+        return $form->schema([]); // Vacío porque no van a crear pagos por aquí
     }
 
     public static function table(Table $table): Table
@@ -58,7 +58,7 @@ class PagoResource extends Resource
                    ->url(fn (Pago $record) => route('imprimir.estadoCuenta', $record->id))
                     ->openUrlInNewTab(),
             ])
-            ->bulkActions([]); // Quitamos las acciones masivas de borrado
+            ->bulkActions([]); 
     }
 
     public static function getPages(): array

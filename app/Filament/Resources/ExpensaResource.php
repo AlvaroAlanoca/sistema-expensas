@@ -37,7 +37,7 @@ public static function form(Form $form): Form
             Section::make('Datos Principales')
                 ->schema([
                     Select::make('propiedad_id')
-                        ->relationship('propiedad', 'id') // Cambia 'id' por 'nombre' o 'numero' si tienes esa columna en Propiedades
+                        ->relationship('propiedad', 'id') 
                         ->label('Propiedad')
                         ->searchable()
                         ->required(),
@@ -54,7 +54,6 @@ TextInput::make('monto')
     ->prefix('$')
     ->live(onBlur: true) // Detecta cuando terminas de escribir
     ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
-        // Solo copia el valor a la deuda si estamos creando una expensa nueva
         if ($operation === 'create') {
             $set('monto_pendiente', $state);
         }
@@ -94,12 +93,13 @@ Section::make('Saldos (Actualizados por el sistema de Pagos)')
             // 3. Estados
             Section::make('Control de Estados')
                 ->schema([
-                    Select::make('estado')
+Select::make('estado')
                         ->options([
-                            1 => 'Pagado',
-                            2 => 'Pendiente / Deuda',
+                            '0' => 'Pendiente',
+                            '1' => 'Pagado',
+                            '2' => 'Vencido',
                         ])
-                        ->default(2) // Asume pendiente al crear
+                        ->default('0') // el valor 0 (Pendiente)
                         ->required(),
                         
                     Select::make('status')
@@ -119,7 +119,7 @@ public static function table(Table $table): Table
     return $table
         ->columns([
             // Accedemos al nombre de la propiedad a través de la relación
-            TextColumn::make('propiedad.nombre')
+            TextColumn::make('propiedad.numero')
                 ->label('Propiedad')
                 ->searchable()
                 ->sortable(),
@@ -154,9 +154,9 @@ TextColumn::make('monto_pendiente')
                 })
                 ->badge()
                 ->color(fn (string $state): string => match ($state) {
-                    '0' => 'warning', // Amarillo
-                    '1' => 'success', // Verde
-                    '2' => 'danger',  // Rojo
+                    '0' => 'warning',
+                    '1' => 'success', 
+                    '2' => 'danger', 
                     default => 'gray',
                 }),
         ])
@@ -164,9 +164,9 @@ TextColumn::make('monto_pendiente')
             // 1. Filtro rápido por Estado
             SelectFilter::make('estado')
                 ->options([
-                    '0' => 'Pendiente',
+                    '2' => 'Pendiente',
                     '1' => 'Pagado',
-                    '2' => 'Vencido',
+                    '0' => 'Vencido',
                 ])
                 ->label('Estado de la Expensa'),
 

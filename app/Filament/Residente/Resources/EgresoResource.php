@@ -30,7 +30,7 @@ class EgresoResource extends Resource
                     ->label('Fecha')
                     ->date('F Y') // Muestra el Mes y Año
                     ->sortable(),
-                Tables\Columns\TextColumn::make('descripcion') // Asumiendo que tienes un campo de descripción o concepto
+                Tables\Columns\TextColumn::make('descripcion') // 
                     ->label('Concepto')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('monto')

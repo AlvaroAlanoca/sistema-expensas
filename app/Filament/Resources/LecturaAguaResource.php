@@ -44,7 +44,7 @@ public static function form(Form $form): Form
             Section::make('Registro de Medidor')
                 ->schema([
                     Select::make('propiedad_id')
-                        ->relationship('propiedad', 'id') // Cambia 'id' por 'numero' o 'torre' si tienes un campo descriptivo
+                        ->relationship('propiedad', 'id') 
                         ->label('Propiedad')
                         ->searchable()
                         ->required(),

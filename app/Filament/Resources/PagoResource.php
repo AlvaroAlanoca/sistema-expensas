@@ -82,8 +82,7 @@ protected static ?string $navigationGroup = 'Finanzas y Pagos';
                                     ])
                                     ->required()
                                     ->live(),
-                                    
-                                // Traemos tu lógica original de Expensa aquí adentro
+
                                 Select::make('expensa_id')
                                     ->relationship('expensa', 'id')
                                     ->getOptionLabelFromRecordUsing(fn (Expensa $record) => "Expensa #{$record->id} - Vence: " . \Carbon\Carbon::parse($record->fecha_vencimiento)->format('d/m/Y'))
@@ -111,9 +110,7 @@ protected static ?string $navigationGroup = 'Finanzas y Pagos';
                     ->label('Copropietario')
                     ->searchable()
                     ->sortable(),
-                    
-                // Se elimina expensa.id de la tabla principal porque ahora un pago puede tener MUCHAS expensas
-                
+              
                 TextColumn::make('monto')
                     ->label('Total Pagado')
                     ->money('USD')

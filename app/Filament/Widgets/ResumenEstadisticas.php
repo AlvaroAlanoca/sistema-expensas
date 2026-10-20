@@ -19,15 +19,12 @@ class ResumenEstadisticas extends BaseWidget
     {
         // 1. Consultas a la base de datos
         $totalPropiedades = Propiedad::count();
-        
-        // Sumamos las columnas numéricas exactas
+
         $totalRecaudado = Expensa::sum('monto_pagado');
         $totalDeuda = Expensa::sum('monto_pendiente');
 
-        // TODO: Cuando creemos la tabla de Gastos, cambiaremos este 0 por: Gasto::sum('monto')
         $totalGastos = 0; 
         
-        // Fórmula del Balance General (Dinero real en caja)
         $balance = $totalRecaudado - $totalGastos;
 
         // 2. Retorno de las tarjetas visuales

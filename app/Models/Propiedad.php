@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Propiedad extends Model
 {
-    protected $table = 'propiedades'; // Le indicamos el nombre exacto de la tabla
+    protected $table = 'propiedades'; 
     protected $guarded = [];
     /*protected $fillable = [
         'numero', 

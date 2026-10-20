@@ -91,7 +91,7 @@ public static function form(Form $form): Form
                             ->suffix('m²')
                             ->maxValue(99999),
                             
-                        Forms\Components\TextInput::make('participacion')
+                        Forms\Components\TextInput::make('porcentaje_participacion')
                             ->label('Participación en Áreas Comunes')
                             ->numeric()
                             ->suffix('%')
@@ -137,7 +137,7 @@ public static function form(Form $form): Form
                     ->color(fn ($state) => $state == 1 ? 'success' : 'danger'),
             ])
             ->filters([
-                // Aquí puedes agregar filtros posteriores
+                // 
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

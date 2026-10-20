@@ -20,7 +20,7 @@ class GastoAscensor extends Model
             $totalPropiedades = $propiedadesActivas->count();
 
             if ($totalPropiedades > 0) {
-                // 2. Aquí centralizamos la regla de negocio: División en partes iguales
+                // 2. Regla de negocio: División en partes iguales
                 $cuotaIndividual = $gasto->monto_total / $totalPropiedades;
 
                 // 3. Inyectamos la cuota en la expensa de cada inquilino

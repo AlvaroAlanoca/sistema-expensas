@@ -16,7 +16,7 @@ class ReporteGastos extends Page
 
     public function getGastosProperty()
     {
-        // Agrupamos los egresos activos por año y mes usando la fecha de la base de datos
+
         return Egreso::select(
             DB::raw('DATE_FORMAT(fecha_egreso, "%Y-%m") as mes_codigo'),
             DB::raw('SUM(monto) as total_gastado')
@@ -26,7 +26,7 @@ class ReporteGastos extends Page
         ->orderBy('mes_codigo', 'desc')
         ->get()
         ->map(function ($item) {
-            // Transformamos "2026-09" en algo más amigable como "Septiembre 2026"
+
             $fecha = Carbon::createFromFormat('Y-m', $item->mes_codigo);
             $item->mes_legible = ucfirst($fecha->translatedFormat('F Y'));
             return $item;
