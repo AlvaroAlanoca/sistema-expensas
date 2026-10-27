@@ -27,27 +27,27 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            // 1. PRIMERO PEDIMOS EL ROL (y lo hacemos reactivo)
+            // 1. PRIMERO PEDIMOS EL ROL
             Forms\Components\Select::make('rol_en_propiedad')
                 ->label('¿Qué rol tendrá este usuario?')
                 ->options([
                     'propietario' => 'Propietario',
                     'inquilino' => 'Inquilino',
                 ])
-                ->live() // CRÍTICO: Esto hace que el formulario se actualice al instante al elegir una opción
+                ->live() 
                 ->required(),
 
-            // 2. LA LISTA DE PROPIEDADES SE ADAPTA AL ROL
+            // 2 LISTA DE PROPIEDADES SE ADAPTA AL ROL
             Forms\Components\Select::make('propiedad_id')
                 ->relationship('propiedad', 'numero', function (Builder $query, Get $get) {
                     $rol = $get('rol_en_propiedad');
                     
-                    // Si estamos agregando un Inquilino, mostramos departamentos Desocupados Y Ocupados
+                    // Departamentos Desocupados Y Ocupados
                     if ($rol === 'inquilino') {
                         return $query->whereIn('estado_ocupacion', ['Desocupado', 'Ocupado']);
                     }
                     
-                    // Si es Propietario (o aún no se seleccionó el rol), SOLO mostramos los Desocupados
+                    // Si es Propietario (o aún no se seleccionó el rol), SOLO  Desocupados
                     return $query->where('estado_ocupacion', 'Desocupado');
                 }) 
                 ->getOptionLabelFromRecordUsing(fn ($record) => trim("{$record->tipo_propiedad} - {$record->numero}"))
@@ -76,7 +76,7 @@ public static function table(Table $table): Table
                 ->label('Propiedad')
                 ->searchable()
                 ->sortable()
-                ->weight('bold'), // Letra en negrita para que resalte
+                ->weight('bold'), 
 
             // 2. Columna de Usuario (Nombre + Apellidos combinados)
             Tables\Columns\TextColumn::make('user.name')
@@ -97,8 +97,8 @@ public static function table(Table $table): Table
                 ->label('Rol')
                 ->badge() // Convierte el texto simple en una etiqueta redondeada
                 ->color(fn (string $state): string => match ($state) {
-                    'propietario' => 'success', // Verde para propietarios
-                    'inquilino' => 'warning',   // Amarillo para inquilinos
+                    'propietario' => 'success', 
+                    'inquilino' => 'warning',   
                     default => 'gray',
                 }),
         ])
