@@ -93,7 +93,7 @@ Section::make('Saldos (Actualizados por el sistema de Pagos)')
             // 3. Estados
             Section::make('Control de Estados')
                 ->schema([
-Select::make('estado')
+                         Select::make('estado')
                         ->options([
                             '0' => 'Pendiente',
                             '1' => 'Pagado',

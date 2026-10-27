@@ -43,11 +43,14 @@ public static function form(Form $form): Form
                             ->placeholder('Ej: 3')
                             ->maxLength(255),
                             
-                        Forms\Components\TextInput::make('numero')
-                            ->label('Número de Unidad')
-                            ->placeholder('Ej: 301')
-                            ->required()
-                            ->maxLength(255),
+Forms\Components\TextInput::make('numero')
+    ->label('Número de Unidad')
+    ->placeholder('Ej: 301')
+    ->required()
+    ->maxLength(255)
+    ->unique(ignoreRecord: true)
+    ->validationMessages([
+        'unique' => 'Este número de unidad ya está registrado.',])
                     ])->columns(3),
 
                 Forms\Components\Section::make('Clasificación y Estado')
@@ -70,6 +73,8 @@ public static function form(Form $form): Form
                                 'Mantenimiento' => 'En Mantenimiento',
                             ])
                             ->default('Desocupado')
+                            ->disabled()
+                            ->dehydrated()
                             ->required(),
 
                         Forms\Components\Select::make('estado')
@@ -124,9 +129,9 @@ public static function form(Form $form): Form
                     ->label('Ocupación')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'ocupado' => 'success',
-                        'alquilado' => 'warning',
-                        'desocupado' => 'danger',
+                        'Ocupado' => 'success',
+                        'Alquilado' => 'warning',
+                        'Desocupado' => 'danger',
                         default => 'gray',
                     }),
 
@@ -205,7 +210,7 @@ public static function form(Form $form): Form
     public static function getRelations(): array
     {
         return [
-            RelationManagers\UsuariosRelationManager::class,
+
         ];
     }
 
